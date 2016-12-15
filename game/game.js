@@ -4,7 +4,7 @@ class Game {
   }
   createBoard(rows, cols, mines) {
     const row = Array.from(Array(cols)).map(_ => 0);
-    const matrix = Array.from(Array(rows)).map(_ => row);
+    const matrix = Array.from(Array(rows)).map(_ => row.slice());
     return this.createMines(matrix, rows, cols, mines);
   }
   createMines(matrix, rows=matrix.length, cols=matrix[0].length, mines=3) {
@@ -12,7 +12,7 @@ class Game {
     while (placed < mines) {
       const randRow = Math.floor(Math.random() * rows);
       const randCol = Math.floor(Math.random() * cols);
-      if (!matrix[randRow][randCol]) {
+      if (matrix[randRow][randCol] !== 1) {
         matrix[randRow][randCol] = 1;
         placed++;
       }
@@ -20,8 +20,9 @@ class Game {
     return matrix;
   }
   printBoard() {
-    this.board.map(row => row.join(' ') + '\n')
-      .forEach(console.log);
+    console.log(this.board.map(row => {
+      return row.join(' ').toString().replace(/1/g, '0') + '\n'
+    }).join(''));
   }
   checkSpace(row, col) {
     if (row >= this.board.length || col >= this.board[0].length) {
