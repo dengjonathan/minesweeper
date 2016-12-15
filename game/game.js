@@ -1,3 +1,5 @@
+const restart = require('../utils/restartHandler');
+
 class Game {
   constructor(rows, cols, mines) {
     this.board = this.createBoard(rows, cols, mines);
@@ -25,14 +27,25 @@ class Game {
     }).join(''));
   }
   checkSpace(row, col) {
+    console.log(row, col);
     if (row >= this.board.length || col >= this.board[0].length) {
       return console.log('this is outside board');
     }
     if (this.board[row][col] === 1) {
-      //lose
+      console.log('You hit a mine!');
+      restartGame();
     }
     this.board[row][col] = '_';
   }
 }
 
-module.exports = Game;
+let game;
+
+module.exports = {
+  init: (rows, cols, mines) => {
+    game = new Game(rows, cols, mines)
+    return game;
+  },
+  checkSpace: (row, col) => game.checkSpace(row, col),
+  printBoard: (row, col) => game.printBoard(game)
+};
