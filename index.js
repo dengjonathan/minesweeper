@@ -14,12 +14,12 @@ prompt.get([
   },
   {
     name: 'cols',
-    message: 'How many cols?'
+    message: 'How many cols?',
     default: 10
   },
   {
     name: 'mines',
-    message: 'How many mines?'
+    message: 'How many mines?',
     default: 3
   }
 ], introHandler);
