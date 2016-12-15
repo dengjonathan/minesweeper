@@ -1,9 +1,12 @@
 const prompt = require('prompt');
+const Game = require('../game/game');
 
-module.exports = input => {
+const playTurn = (err, {row, col}) => {
   // check input for digits
-  if (input === '') {
-
-  }
-  console.log('recieved input');
+  console.log(row, col);
+  Game.checkSpace(+row, +col);
+  Game.printBoard();
+  prompt.get(['row', 'col'], playTurn);
 };
+
+module.exports = playTurn;
